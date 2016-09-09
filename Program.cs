@@ -16,10 +16,9 @@ namespace ConsoleApplication
                 var lf = sp.GetService<ILoggerFactory>();
                 lf.AddConsole();
 
-                var all = ctx.Set<MainEntity>().Where(e => e.Child.Text.Contains("hi")).ToArray();
-
-                // also fails:
-                //var all = ctx.Set<MainEntity>().Where(e => e.Child == null || e.Child.Text.Contains("hi")).ToArray();
+                var list = ctx.Set<Widget>()
+                    .Select(m => new { Manufacturer = m.ManufacturedIdentity.Manufacturer.Name, GeoArea = m.GeoArea.Name })
+                    .ToList();
             }
         }
     }
